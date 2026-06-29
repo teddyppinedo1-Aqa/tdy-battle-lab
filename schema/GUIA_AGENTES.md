@@ -22,6 +22,7 @@ Ejemplos válidos:
 - `FUNG-MICRO-001` → Primer microorganismo fúngico
 - `FARM-COMP-001` → Primer compuesto activo farmacológico
 - `BACT-MICRO-001` → Primer microorganismo bacteriano
+- `ENTR-ENTR-001` → Primera carta de Entorno
 
 ---
 
@@ -48,9 +49,22 @@ Regla: cartas de nivel 5+ tienen `requiere_sacrificio: true`.
 5. `espectro` debe incluir al menos 3 organismos para cartas de Compuesto Activo.
 6. `fuente.año` mínimo 2018 — no usar fuentes anteriores a 2018.
 7. `sinergias` deben referenciar IDs existentes en el repositorio.
-8. Para cartas de Soporte: `stats` es null (no tienen ATK/DEF).
+8. Para cartas de Soporte y Entorno: `stats` es null (no tienen ATK/DEF).
 9. `prompt_imagen` debe generarse en inglés para mejores resultados con APIs de imagen.
 10. `uso_clinico_peru.nota_regional` siempre debe mencionar contexto de Loreto/Amazonía cuando aplique.
+11. REVELACIÓN se activa al ser volteada la carta (por ataque o Invocación de Diagnóstico), NO al ser invocada. Verificar que `trigger` sea `al_ser_revelada` y que `texto_efecto` use la palabra "REVELACIÓN:" correctamente.
+12. `fecha_creacion` debe corresponder a la fecha real de generación de la carta (formato ISO 8601: YYYY-MM-DD).
+
+---
+
+## DESTINO DE ARCHIVOS POR TIPO DE CARTA
+
+| Tipo de carta | Subcarpeta destino |
+|---|---|
+| Microorganismo | `microorganismos/` |
+| Compuesto Activo | `farmacos/` |
+| Virulencia / Intervención Médica / Diagnóstico / Búsqueda | `soporte/` |
+| Entorno | `entorno/` |
 
 ---
 
@@ -65,7 +79,7 @@ Regla: cartas de nivel 5+ tienen `requiere_sacrificio: true`.
 | MODIFICAR_ATK | Modifica ATK de una carta | Entero (+ o -) |
 | MODIFICAR_DEF | Modifica DEF de una carta | Entero (+ o -) |
 | DESTRUIR_CARTA | Destruye una carta objetivo | null |
-| ROBAR_CARTA | El jugador roba cartas del mazo | Nro de cartas |
+| ROBAR_CARTA | El jugador roba cartas del mazo | Nro de cartas del mazo |
 | BUSCAR_MAZO | Busca carta específica en mazo | null |
 | NEGAR_EFECTO | Cancela efecto de carta rival | null |
 | INMUNIDAD_TURNO | Carta inmune a efectos este turno | null |
@@ -84,18 +98,23 @@ Eres un generador de cartas para TDY Battle-Lab, un juego de cartas educativo so
 Genera UNA carta completa en formato JSON válido que cumpla estrictamente con el schema en card_schema.json.
 
 Carta a generar: [NOMBRE DEL AGENTE O FÁRMACO]
-Bando: [Patógeno / Fármaco]
+Bando: [Patógeno / Fármaco / Neutral]
 Set: [SET-01-HONGOS / SET-02-BACTERIAS / etc.]
 Rareza sugerida: [Común / Poco Común / Rara / Ultra Rara / Legendaria]
+ID asignado: [CATEGORIA-SUBTIPO-NUMERO]
+Subcarpeta destino: [microorganismos / farmacos / soporte / entorno]
 
 Reglas obligatorias:
 1. Toda información clínica debe basarse en evidencia real (WHO, MINSA Perú, UpToDate, Mandell 9ed).
 2. texto_efecto debe reflejar propiedades clínicas reales del agente.
-3. mecanismo_corto máximo 50 caracteres.
-4. lore máximo 120 caracteres.
+3. mecanismo_corto máximo 50 caracteres — contar caracteres antes de escribir.
+4. lore máximo 120 caracteres — contar caracteres antes de escribir.
 5. prompt_imagen en inglés, estilo "anime científico médico".
 6. Incluir nota_regional relevante para Loreto, Perú cuando aplique.
-7. Responde SOLO con el JSON. Sin explicaciones, sin markdown, sin texto adicional.
+7. REVELACIÓN se activa al voltear la carta, no al invocarla. Usar trigger al_ser_revelada.
+8. fecha_creacion debe ser la fecha actual en formato YYYY-MM-DD.
+9. Cartas de Soporte y Entorno tienen stats null (sin ATK/DEF).
+10. Responde SOLO con el JSON. Sin explicaciones, sin markdown, sin texto adicional.
 ```
 
 ---
@@ -113,10 +132,24 @@ tdy-battle-lab/
 ├── data/
 │   ├── SET-01-HONGOS/
 │   │   ├── microorganismos/
-│   │   └── farmacos/
+│   │   ├── farmacos/
+│   │   ├── soporte/
+│   │   └── entorno/
 │   ├── SET-02-BACTERIAS/
+│   │   ├── microorganismos/
+│   │   ├── farmacos/
+│   │   ├── soporte/
+│   │   └── entorno/
 │   ├── SET-03-VIRUS/
+│   │   ├── microorganismos/
+│   │   ├── farmacos/
+│   │   ├── soporte/
+│   │   └── entorno/
 │   └── SET-04-PARASITOS/
+│       ├── microorganismos/
+│       ├── farmacos/
+│       ├── soporte/
+│       └── entorno/
 ├── assets/
 │   └── cards/                    ← PNGs generados
 └── src/
