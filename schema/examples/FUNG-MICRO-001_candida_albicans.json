@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "id": "FUNG-MICRO-001",
+    "version": "1.0",
+    "set": "SET-01-HONGOS",
+    "fuente": {
+      "nombre": "Mandell Enfermedades Infecciosas 9ed / MINSA Peru 2024",
+      "año": 2024,
+      "url": "https://www.gob.pe/minsa"
+    },
+    "fecha_creacion": "2026-06-27"
+  },
+
+  "display": {
+    "nombre": "Candida albicans",
+    "tipo_carta": "Microorganismo",
+    "subtipo": "Levadura Dimórfica",
+    "rareza": "Común",
+    "nivel": 3,
+    "imagen": {
+      "archivo": "candida_albicans_v1.png",
+      "estilo": "ilustración médica estilo anime científico, levadura con pseudohifas emergentes, microscopía estilizada, fondo rojo oscuro degradado, tonos carmesí y negro",
+      "prompt_imagen": "Scientific anime illustration of Candida albicans, yeast cells with pseudohyphae extending outward, stylized microscopy aesthetic, dark crimson gradient background, bioluminescent cell walls, medical horror style, high detail, card game art"
+    },
+    "mecanismo_corto": "Produce candidalisina → daño epitelial",
+    "texto_efecto": "REVELACIÓN: Al ser volteada por ataque, el atacante pierde 400 puntos de PSP adicionales al daño de combate normal. Una vez por turno: Si esta carta destruye a un Compuesto Activo en combate, roba 1 carta.",
+    "lore": "Colonizadora silente. Solo cuando el huésped baja la guardia, la comensal se convierte en invasora."
+  },
+
+  "juego": {
+    "bando": "Patógeno",
+    "stats": {
+      "ATK": 1400,
+      "DEF": 900
+    },
+    "efectos_motor": [
+      {
+        "tipo": "DAÑO_DIRECTO",
+        "trigger": "al_ser_revelada",
+        "valor": 400,
+        "objetivo": "PSP",
+        "condicion_adicional": "solo_si_revelada_por_ataque"
+      },
+      {
+        "tipo": "ROBAR_CARTA",
+        "trigger": "al_atacar",
+        "valor": 1,
+        "objetivo": "jugador_propio",
+        "condicion_adicional": "solo_si_destruye_Compuesto_Activo"
+      }
+    ],
+    "restricciones": {
+      "max_por_mazo": 3,
+      "requiere_sacrificio": false,
+      "invocacion_especial_solo": false
+    },
+    "sinergias": [
+      {
+        "carta_id": "FUNG-VIRU-001",
+        "tipo_sinergia": "POTENCIA",
+        "descripcion": "Con 'Formación de Biofilm' en Zona de Soporte: esta carta gana +300 DEF y su efecto REVELACIÓN aumenta a 700 de daño."
+      },
+      {
+        "carta_id": "FARM-COMP-001",
+        "tipo_sinergia": "RESISTENCIA_CRUZADA",
+        "descripcion": "Si en el cementerio rival hay 2 o más cartas de Fluconazol: esta carta gana inmunidad a efectos de cartas Azólicas este turno."
+      }
+    ]
+  },
+
+  "clinica": {
+    "categoria": {
+      "reino": "Fungi",
+      "clase_farmacologica": "No aplica (patógeno)",
+      "grupo_OMS": "Patógeno oportunista prioritario OMS 2022"
+    },
+    "mecanismo_accion_completo": "C. albicans expresa candidalisina (péptido citolítico codificado por ECE1), que daña directamente las membranas del epitelio del huésped. Además, la transición morfológica de levadura a hifa permite la invasión tisular activa. Las adhesinas de superficie (Als1-7, Hwp1) median la colonización inicial. En estados de inmunosupresión (neutropenia, uso de corticoides, VIH avanzado), el organismo supera los mecanismos de defensa y produce enfermedad invasiva.",
+    "espectro": [
+      {
+        "organismo": "Candida albicans",
+        "susceptibilidad": "Susceptible",
+        "nota": "Generalmente susceptible a azólicos, equinocandinas y polienos. Principal causa de candidiasis mucocutánea e invasiva."
+      }
+    ],
+    "farmacocinetica": null,
+    "efectos_adversos": null,
+    "resistencia": [
+      {
+        "mecanismo": "Mutación puntual en ERG11 (diana de azólicos)",
+        "relevancia_clinica": "Moderada"
+      },
+      {
+        "mecanismo": "Sobreexpresión de bombas de eflujo CDR1/CDR2 y MDR1",
+        "relevancia_clinica": "Alta"
+      },
+      {
+        "mecanismo": "Formación de biofilm (reduce penetración de antifúngicos hasta 1000x)",
+        "relevancia_clinica": "Alta"
+      }
+    ],
+    "uso_clinico_peru": {
+      "disponibilidad_MINSA": "No disponible sistema público",
+      "indicaciones_principales": [
+        "Principal agente de candidiasis orofaríngea en pacientes VIH",
+        "Candidiasis vulvovaginal (forma más frecuente)",
+        "Candidiasis invasiva en UCI y pacientes onco-hematológicos",
+        "Candidemia (1ra causa en LATAM)"
+      ],
+      "nota_regional": "En el Hospital Regional de Loreto, considerar candidiasis invasiva en pacientes con catéter venoso central, nutrición parenteral o cirugía abdominal mayor. Prevalencia alta en UCI regional."
+    },
+    "dato_educativo": "Candida albicans es la especie más frecuente de candidemia en Latinoamérica (60-70% de casos). Sin embargo, la tendencia global muestra desplazamiento hacia especies no-albicans (C. tropicalis, C. parapsilosis, C. glabrata/Nakaseomyces glabrata) con mayor resistencia a azólicos. La mortalidad de la candidemia no tratada supera el 40% en pacientes críticos."
+  }
+}
