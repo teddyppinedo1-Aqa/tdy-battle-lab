@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "descripcion": "Índice maestro de todas las cartas del proyecto TDY Battle-Lab. OBLIGATORIO: Antigravity debe consultar este archivo ANTES de generar cualquier carta nueva, para (1) evitar IDs duplicados, (2) evitar generar dos veces el mismo agente/fármaco bajo nombres distintos, y (3) calcular cuántas cartas de cada categoria_clinica faltan para completar la proporción fija de un set (ver GUIA_AGENTES.md, sección 'Regla de composición de sets mixtos').",
+    "version": "1.0",
+    "schema_compatible": "card_schema.json v1.1",
+    "fecha_creacion": "2026-06-30",
+    "ultima_actualizacion": "2026-06-30",
+    "regla_de_uso": [
+      "1. Antes de generar una carta nueva, buscar el nombre del agente/fármaco (normalizado, sin tildes, minúsculas) en la lista 'cartas' de este índice.",
+      "2. Si el nombre ya existe → NO generar de nuevo. Alertar al usuario indicando el ID existente.",
+      "3. Si el nombre no existe → generar la carta y AGREGAR una entrada nueva a este índice con id, nombre, categoria_clinica, set y tipo_carta.",
+      "4. Antes de cerrar un set, contar cuántas cartas de cada categoria_clinica tiene ese set en este índice y verificar que cumpla 9 Bacterias / 9 Virus / 6 Parasitos / 3 Hongos / 2-1 Entorno / 1-2 Soporte (alternando)."
+    ]
+  },
+  "conteo_por_categoria": {
+    "Hongos": 2,
+    "Bacterias": 0,
+    "Virus": 0,
+    "Parasitos": 0,
+    "Entorno": 0,
+    "Soporte": 0
+  },
+  "conteo_por_set": {
+    "SET-01": 2
+  },
+  "cartas": [
+    {
+      "id": "FUNG-MICRO-001",
+      "nombre": "Candida albicans",
+      "categoria_clinica": "Hongos",
+      "set": "SET-01",
+      "tipo_carta": "Microorganismo"
+    },
+    {
+      "id": "FUNG-COMP-001",
+      "nombre": "Fluconazol",
+      "categoria_clinica": "Hongos",
+      "set": "SET-01",
+      "tipo_carta": "Compuesto Activo"
+    }
+  ]
+}
