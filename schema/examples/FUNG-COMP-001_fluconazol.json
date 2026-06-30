@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "id": "FUNG-COMP-001",
+    "version": "1.1",
+    "set": "SET-01",
+    "categoria_clinica": "Hongos",
+    "fuente": {
+      "nombre": "WHO EML 2023 / UpToDate 2024",
+      "año": 2024,
+      "url": "https://www.who.int/publications/i/item/9789240001169"
+    },
+    "fecha_creacion": "2026-06-30"
+  },
+
+  "display": {
+    "nombre": "Fluconazol",
+    "tipo_carta": "Compuesto Activo",
+    "subtipo": "Azólico Sistémico",
+    "rareza": "Común",
+    "nivel": 3,
+    "imagen": {
+      "archivo": "fluconazol_v1.png",
+      "estilo": "ilustración científica estilo anime, molécula 3D del fluconazol (bis-triazol), estructura química flotante, fondo azul eléctrico degradado, efectos de luz bioluminiscente, estética de carta de juego médico",
+      "prompt_imagen": "Scientific anime illustration of Fluconazole molecule, 3D bis-triazole chemical structure floating in space, glowing molecular bonds, electric blue gradient background, bioluminescent effects, medical game card art, high detail, clean render"
+    },
+    "mecanismo_corto": "Inhibe síntesis de ergosterol (CYP51A1)",
+    "texto_efecto": "Al ser invocada: elige 1 Microorganismo subtipo 'Levadura' rival y reduce su ATK en 500 hasta fin de turno. SINERGISMO: si 'Flucitosina' está en tu Confrontación, el efecto sube a 900.",
+    "lore": "Primera línea azólica, eficaz y accesible. La resistencia recuerda que ningún antifúngico es eterno."
+  },
+
+  "juego": {
+    "bando": "Fármaco",
+    "stats": {
+      "ATK": 1500,
+      "DEF": 800
+    },
+    "efectos_motor": [
+      {
+        "tipo": "MODIFICAR_ATK",
+        "trigger": "al_ser_invocada",
+        "valor": -500,
+        "objetivo": "carta_rival",
+        "condicion_adicional": "objetivo_debe_ser_subtipo_Levadura"
+      },
+      {
+        "tipo": "SINERGISMO",
+        "trigger": "al_ser_invocada",
+        "valor": -400,
+        "objetivo": "carta_rival",
+        "condicion_adicional": "si_Flucitosina_activa_en_Zona_Confrontacion_propia — acumula con efecto base llegando a -900"
+      }
+    ],
+    "restricciones": {
+      "max_por_mazo": 3,
+      "requiere_sacrificio": false,
+      "invocacion_especial_solo": false
+    },
+    "sinergias": [
+      {
+        "carta_id": "FUNG-COMP-008",
+        "tipo_sinergia": "COMBINACION_SINERGICA",
+        "descripcion": "Con 'Flucitosina' activa en Zona de Confrontación: el efecto de reducción de ATK aumenta de 500 a 900 (refleja sinergia clínica real en meningitis criptocócica)."
+      },
+      {
+        "carta_id": "FUNG-MICRO-001",
+        "tipo_sinergia": "ANTAGONISMO",
+        "descripcion": "Si C. albicans en campo rival tiene 2 cartas de 'Formación de Biofilm' activas: el efecto de reducción de ATK de Fluconazol no aplica (resistencia por biofilm)."
+      },
+      {
+        "carta_id": "FUNG-MICRO-005",
+        "tipo_sinergia": "RESISTENCIA_CRUZADA",
+        "descripcion": "Contra Candida krusei (FUNG-MICRO-005): esta carta no puede apuntar ni afectar a dicha carta. Resistencia intrínseca documentada."
+      }
+    ]
+  },
+
+  "clinica": {
+    "categoria": {
+      "reino": "Fungi",
+      "clase_farmacologica": "Azólico sistémico — bis-triazol de primera generación",
+      "grupo_OMS": "Antimicrobiano esencial — Lista OMS de Medicamentos Esenciales 2023"
+    },
+    "mecanismo_accion_completo": "Inhibición selectiva y reversible de la lanosterol 14α-desmetilasa (CYP51A1), isoenzima del citocromo P450 fúngico. Este bloqueo impide la conversión de lanosterol en ergosterol, componente estructural indispensable de la membrana fúngica. La consecuencia es doble: acumulación de 14α-metilesteroles tóxicos que alteran la fluidez membranal, y depleción de ergosterol que compromete la integridad y permeabilidad de la membrana, resultando en inhibición del crecimiento fúngico (efecto fungistático, no fungicida).",
+    "espectro": [
+      {
+        "organismo": "Candida albicans",
+        "susceptibilidad": "Susceptible",
+        "nota": "Cepa tipo salvaje generalmente susceptible. Vigilar resistencia adquirida en exposición previa prolongada."
+      },
+      {
+        "organismo": "Candida tropicalis",
+        "susceptibilidad": "Susceptible",
+        "nota": "Susceptibilidad similar a C. albicans. Emergencia de resistencia documentada en Latinoamérica."
+      },
+      {
+        "organismo": "Candida glabrata (Nakaseomyces glabrata)",
+        "susceptibilidad": "Susceptible_dosis_dependiente",
+        "nota": "Requiere dosis altas (400-800 mg/día). Alta tasa de resistencia secundaria. Preferir equinocandinas."
+      },
+      {
+        "organismo": "Candida krusei (Pichia kudriavzevii)",
+        "susceptibilidad": "Resistencia_intrínseca",
+        "nota": "Contraindicado. Resistencia intrínseca documentada. Usar equinocandina o anfotericina B."
+      },
+      {
+        "organismo": "Cryptococcus neoformans",
+        "susceptibilidad": "Susceptible",
+        "nota": "Indicado en fase de mantenimiento y consolidación de meningitis criptocócica (no en inducción)."
+      },
+      {
+        "organismo": "Aspergillus spp.",
+        "susceptibilidad": "Resistencia_intrínseca",
+        "nota": "Sin actividad clínicamente útil contra Aspergillus. Usar voriconazol o isavuconazol."
+      }
+    ],
+    "farmacocinetica": {
+      "via_administracion": ["VO", "IV"],
+      "biodisponibilidad_oral": ">90% (bioequivalente a IV)",
+      "union_proteica": "11-12%",
+      "penetracion_SNC": "Excelente (>80%)",
+      "eliminacion": "Renal 80% sin metabolizar. Ajustar dosis en insuficiencia renal (ClCr <50 ml/min: reducir 50%)."
+    },
+    "efectos_adversos": {
+      "frecuentes": [
+        "Náuseas y dolor abdominal",
+        "Cefalea",
+        "Elevación transitoria de transaminasas (ALT/AST)",
+        "Rash cutáneo"
+      ],
+      "graves": [
+        "Hepatotoxicidad severa (rara, más frecuente en dosis altas o uso prolongado)",
+        "Prolongación del intervalo QT (monitorear con azitromicina, haloperidol u otros QT-prolongantes)",
+        "Síndrome de Stevens-Johnson (muy raro)",
+        "Teratogenicidad: contraindicado en embarazo (categoría D/X a dosis altas)"
+      ]
+    },
+    "resistencia": [
+      {
+        "mecanismo": "Mutación puntual en ERG11 (Y132F, K143R, F145L más frecuentes)",
+        "relevancia_clinica": "Alta"
+      },
+      {
+        "mecanismo": "Sobreexpresión de bombas de eflujo CDR1, CDR2 (ABC transporters) y MDR1 (MFS transporter)",
+        "relevancia_clinica": "Alta"
+      },
+      {
+        "mecanismo": "Amplificación del gen ERG11 (más copias = más diana disponible)",
+        "relevancia_clinica": "Moderada"
+      },
+      {
+        "mecanismo": "Biofilm: matriz extracelular reduce penetración del fármaco hasta 1000 veces",
+        "relevancia_clinica": "Alta"
+      }
+    ],
+    "indicaciones_principales": [
+      "Candidiasis orofaríngea y esofágica (primera línea)",
+      "Candidiasis vulvovaginal complicada o recurrente",
+      "Meningitis criptocócica — fase de consolidación y mantenimiento (150-200 mg/día x 12 meses)",
+      "Profilaxis en pacientes onco-hematológicos de alto riesgo",
+      "Candidemia en paciente estable sin exposición previa a azólicos"
+    ],
+    "uso_clinico_regional": [
+      {
+        "pais_referencia": "Peru",
+        "disponibilidad_sistema_salud": {
+          "estado": "Disponible sistema publico",
+          "fuente": "MINSA Peru - Petitorio Nacional 2024"
+        },
+        "nota_regional": "Disponible en DIRESA Loreto y Hospital Regional de Loreto (HRL). En contexto amazónico, considerar histoplasmosis y paracoccidioidomicosis en el diagnóstico diferencial — fluconazol NO es primera línea para estas micosis endémicas (usar itraconazol o anfotericina B)."
+      }
+    ],
+    "dato_educativo": "Aunque fluconazol tiene biodisponibilidad oral >90%, en meningitis criptocócica NUNCA debe usarse como inducción. OMS 2022: inducción con anfotericina B + flucitosina x 7 días. Fluconazol entra en consolidación y mantenimiento. Usarlo en inducción aumenta la mortalidad a 10 semanas."
+  }
+}
